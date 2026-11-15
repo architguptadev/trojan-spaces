@@ -8,7 +8,8 @@
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:postgres": "tsx tests/postgres.integration.ts"
   },
   "keywords": [],
   "author": "",

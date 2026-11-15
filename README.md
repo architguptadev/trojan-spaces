@@ -4,7 +4,9 @@
 
 > Working demo, honest boundaries: real USC building/system references; synthetic room IDs, photos, capacities, amenities, availability and walking times. No official reservation API is connected. Official directory mode never implies live availability. This is an independent student prototype.
 
-![Trojan Spaces desktop](docs/screenshots/desktop.png)
+[![Verify](https://github.com/architguptadev/trojan-spaces/actions/workflows/ci.yml/badge.svg)](https://github.com/architguptadev/trojan-spaces/actions/workflows/ci.yml)
+
+![Trojan Spaces desktop](docs/screenshots/preview.png)
 
 ## Run in two minutes
 
@@ -59,6 +61,8 @@ npm run typecheck
 npm run build
 npx playwright install chromium
 npm run test:e2e
+# Optional: DATABASE_URL must point to a disposable Postgres test database.
+npm run test:postgres
 ```
 
 Unit tests cover group overlap, capacity, amenities, eligibility, conflict exclusion and input validation. Browser/API tests cover persistence, mobile overflow, maps, session isolation, group joins, consent, ordered release states and honest live mode. Screenshots are captured from the running app into `docs/screenshots/`.
@@ -75,6 +79,9 @@ Sessions expire after 30 days in the browser. This MVP has no user accounts or a
 - [110-second video script](docs/DEMO-SCRIPT.md)
 - [Research and event requirements](docs/RESEARCH.md)
 - [Implementation status and limitations](docs/STATUS.md)
+- [Six-slide pitch deck](docs/Trojan-Spaces-Pitch.pptx)
 - [Screenshot gallery](docs/screenshots/)
 
 Room photographs are illustrative, served by Unsplash. Map tiles are from OpenStreetMap with attribution. Project code is MIT licensed; third-party assets and dependencies retain their own terms. No USC marks or official endorsement claims are included.
+
+Postgres adapter integration was exercised against local Postgres 17, including eight concurrent group joins. Hosted Supabase connectivity and Gemini model execution still require credentials.

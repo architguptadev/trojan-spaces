@@ -1,7 +1,7 @@
 # Implementation status
 
 ## Implemented and locally exercised
-Discovery and filtering, responsive UI, map, validated local natural-language parsing, group invite links and availability persistence, constraint matching, saved plans, conflict-triggered replanning, consent-based synthetic watches, cancellation/release state ordering, official handoff and PWA offline fallback. Postgres adapter and Gemini adapter are implemented.
+Discovery and filtering, responsive UI, map, validated local natural-language parsing, group invite links and availability persistence, constraint matching, saved plans, conflict-triggered replanning, consent-based synthetic watches, cancellation/release state ordering, official handoff and PWA offline fallback. Postgres and Gemini adapters are implemented. The Postgres adapter also passed local Postgres 17 integration checks for persistence, isolation and eight concurrent group joins.
 
 ## External dependencies
 - Live room inventory and real cancellation watches: require permission and provider credentials. No connector is silently substituted with scraping.
