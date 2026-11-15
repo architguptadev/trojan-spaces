@@ -160,7 +160,11 @@ export default function Spaces() {
   };
   const find = () =>
     run(async () => {
-      const p = await api("plan", { request, members, mode });
+      const latestMembers = group
+        ? (await api("group_read", { id: group.id })).members
+        : members;
+      setMembers(latestMembers);
+      const p = await api("plan", { request, members: latestMembers, mode });
       setPlan(p);
       setPlans((v) => [...v, p]);
       setModal("plan");
@@ -220,8 +224,9 @@ export default function Spaces() {
         "Invite link created. Anyone with the link can see names and add availability.",
       );
     });
-  const handoff = (room: Room, p?: any) =>
-    run(async () => {
+  const handoff = (room: Room, p?: any) => {
+    window.open(room.url, "_blank", "noopener,noreferrer");
+    return run(async () => {
       if (p) {
         const updated = await api("handoff", { id: p.id, roomId: room.id });
         setPlan(updated);
@@ -230,8 +235,8 @@ export default function Spaces() {
       setNotice(
         "Continue in the official USC system. No reservation has been confirmed.",
       );
-      window.open(room.url, "_blank", "noopener,noreferrer");
     });
+  };
   return (
     <div className="app-shell">
       <aside className={`sidebar ${mobileNav ? "open" : ""}`}>

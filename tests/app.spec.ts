@@ -215,3 +215,28 @@ test("watch opt-in and ordered release work in the interface", async ({
   ).toBeVisible();
   await page.screenshot({ path: "docs/screenshots/release.png" });
 });
+
+test("official handoff opens from the click and remains unconfirmed", async ({
+  page,
+  context,
+}) => {
+  await context.route("https://libcal.usc.edu/**", (route) =>
+    route.fulfill({
+      body: "Official booking fixture. No reservation created.",
+    }),
+  );
+  await page.goto("/");
+  await page.getByRole("button", { name: "Find a space", exact: true }).click();
+  const d = page.getByRole("dialog");
+  await expect(d.getByText("BEST FEASIBLE FIT")).toBeVisible();
+  const popupPromise = page.waitForEvent("popup");
+  await d.getByRole("button", { name: "Official booking" }).first().click();
+  const popup = await popupPromise;
+  await expect(popup).toHaveURL("https://libcal.usc.edu/");
+  await expect(
+    d.getByText(
+      "Official booking link opened. Reservation is not confirmed by Trojan Spaces.",
+    ),
+  ).toBeVisible();
+  await popup.close();
+});
